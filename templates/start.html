@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>HTML Reference</title>
+<script>
+  console.log("some random text for testing");
+  document.onkeypress = key_pressed;
+
+  var myVar;
+
+  function myFunction() {
+    document.getElementById("nw").focus();
+    console.log(document.activeElement.id);
+    myVar = setInterval(alertFunc, 3000);
+  }
+
+  function alertFunc() {
+    switch (document.activeElement.id) {
+      case "nw":
+      document.getElementById("ne").focus();
+      break;
+      case "ne":
+      document.getElementById("se").focus();
+      break;
+      case "se":
+      document.getElementById("sw").focus();
+      break;
+      case "sw":
+      document.getElementById("nw").focus();
+      break;
+    }
+  }
+
+  function key_pressed(event) {
+    /*
+
+    */
+
+    alert(event.key);
+    clearInterval(myVar);
+    }
+</script>
+
+<style type="text/css">
+
+html, body { height:100%; margin:0; padding:0}
+div { position:fixed;
+  width:50%; height:50%;
+  box-sizing:border-box; font-size: 800%;
+  display: flex;
+  justify-content: center;
+  /* align horizontal */
+  align-items: center;
+  /* align vertical */}
+#nw { top:0;   left:0;   background:orange  }
+#ne { top:0;   left:50%; background:blue    }
+#sw { top:50%; left:0;   background:green   }
+#se { top:50%; left:50%; background:red     }
+
+:focus {
+  border: 30px solid black
+}
+</style>
+
+</head>
+  <body onload="myFunction();">
+    <div id="nw" tabindex="1">Yellow</div>
+    <div id="ne" tabindex="2">Blue</div>
+    <div id="sw" tabindex="3">Green</div>
+    <div id="se" tabindex="4">Red</div>
+  </body>
+</html>
