@@ -8,28 +8,6 @@
 
   var myVar;
 
-  function myFunction() {
-    document.getElementById("nw").focus();
-    console.log(document.activeElement.id);
-    myVar = setInterval(alertFunc, 3000);
-  }
-
-  function alertFunc() {
-    switch (document.activeElement.id) {
-      case "nw":
-      document.getElementById("ne").focus();
-      break;
-      case "ne":
-      document.getElementById("se").focus();
-      break;
-      case "se":
-      document.getElementById("sw").focus();
-      break;
-      case "sw":
-      document.getElementById("nw").focus();
-      break;
-    }
-  }
 
   function key_pressed(event) {
     /*
@@ -40,6 +18,7 @@
       clearInterval(myVar);
       var newURL;
       newURL = window.location.href + "answer";
+      alert(newURL)
       window.location.assign(newURL);
     }
     }
@@ -76,7 +55,7 @@ div { position:fixed;
 
 </head>
 
-  <body onload="myFunction();">
+  <body>
     <div id="bar">2 + 2 = </div>
     <div id="nw" tabindex="1">2</div>
     <div id="ne" tabindex="2">4</div>
