@@ -6,7 +6,7 @@ app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 @app.route('/')
 def home():
     flash('b')
-    return render_template('start.html')
+    return render_template('question.html')
 
 @app.route('/answer')
 def answer():
