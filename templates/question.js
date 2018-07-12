@@ -35,7 +35,7 @@
       alert(document.activeElement.id);
       clearInterval(myVar);
       var newURL;
-      newURL = window.location.href + "answer";
+      newURL = window.location.href + "answer/" + document.activeElement.id;
       window.location.assign(newURL);
     }
     }
