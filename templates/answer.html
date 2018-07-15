@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>Answer</title>
+  {% include "answer.js" %}
   {% include "question.css" %}
   <style type="text/css">
     {% if selection == "nw" %}
@@ -17,10 +18,23 @@
 </head>
 
   <body>
-    <div id="bar">2 + 2 = </div>
-    <div id="nw" tabindex="1">2</div>
-    <div id="ne" tabindex="2">4</div>
-    <div id="sw" tabindex="3">6</div>
-    <div id="se" tabindex="4">8</div>
+    <div id="bar">{{db_qas.question}} {{db_qas.correct_answer}}</div>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div id="{{ category }}" tabindex="0">
+            {{db_qas[message]}}
+            {% if category==selection %}
+              {# we are in the category selected by the user #}
+              {% if message=="correct_answer" %}
+                &#10004; {# tick #}
+              {% else %}
+                &#10008; {# cross #}
+              {% endif %}
+            {% endif %}
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
   </body>
 </html>

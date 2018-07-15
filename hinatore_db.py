@@ -4,7 +4,7 @@ from os import path
 ROOT = path.dirname(path.realpath(__file__))
 db_path = path.join(ROOT, "hinatore.db")
 
-def get_data(question_group="2_dice"):
+def get_data(group, number):
     con = sqlite3.connect(db_path)
     con.row_factory = sqlite3.Row # makes a named tuple
     cur = con.cursor()
@@ -15,9 +15,10 @@ def get_data(question_group="2_dice"):
         question_and_answers
     WHERE
         question_group = ?
+        AND question_number = ?
     '''
-    vars = (question_group,) # note this is a tuple (trailing comma)
+    vars = (group, number)
 
     with con:
         cur.execute(query, vars)
-        return cur.fetchall()
+        return cur.fetchall()[0]
