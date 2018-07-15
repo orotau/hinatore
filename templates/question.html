@@ -6,12 +6,11 @@
     {% include "question.css" %}
   </head>
 
-  <body onload="myFunction();">
-
+  <body onload="startMovingFocus();">
     <div id="bar">{{question}}</div>
-    <div id="nw" tabindex="0">{{ui_data.nw}}</div>
-    <div id="ne" tabindex="0">{{ui_data.ne}}</div>
-    <div id="sw" tabindex="0">{{ui_data.sw}}</div>
-    <div id="se" tabindex="0">{{ui_data.se}}</div>
+    <div id="nw" tabindex="0">{{ui_data.nw[0]}}</div>
+    <div id="ne" tabindex="0">{{ui_data.ne[0]}}</div>
+    <div id="sw" tabindex="0">{{ui_data.sw[0]}}</div>
+    <div id="se" tabindex="0">{{ui_data.se[0]}}</div>
   </body>
 </html>

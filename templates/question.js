@@ -2,15 +2,14 @@
   console.log("some random text for testing");
   document.onkeypress = key_pressed;
 
-  var myVar;
+  var interval_timer;
 
-  function myFunction() {
+  function startMovingFocus() {
     document.getElementById("nw").focus();
-    console.log(document.activeElement.id);
-    myVar = setInterval(alertFunc, 3000);
+    interval_timer = setInterval(moveFocus, 3000);
   }
 
-  function alertFunc() {
+  function moveFocus() {
     switch (document.activeElement.id) {
       case "nw":
       document.getElementById("ne").focus();
@@ -32,9 +31,28 @@
 
     */
     if (event.key === "1") {
-      clearInterval(myVar);
+      clearInterval(interval_timer);
       var newURL;
-      newURL = window.location.href + "/" + document.activeElement.id;
+      var selection = document.activeElement.id;
+      var db_column
+      switch(selection) {
+        case "nw":
+            db_column = "{{ui_data.nw[1]}}";
+            break;
+        case "ne":
+            db_column = "{{ui_data.ne[1]}}";
+            break;
+        case "se":
+            db_column = "{{ui_data.se[1]}}";
+            break;
+        case "sw":
+            db_column = "{{ui_data.sw[1]}}";
+            break;
+      }
+      newURL = window.location.href + "/" +
+               selection +
+               "?db_column=" +
+               db_column;
       window.location.assign(newURL);
     }
     }
