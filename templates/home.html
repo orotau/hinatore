@@ -2,14 +2,16 @@
 <html>
 <body>
 
-<h2>Get started with hinatore</h2>
+<h1>Get started with hīnātore</h1>
 <form action="{{ url_for('start') }}" method="post">
     {% for user in users %}
-      <input type="radio" name="user" value="{{user.name}}">{{user.name}}<br>
+      <input type="radio" name="user" value="{{user.name}}" required>{{user.name}}<br>
     {% endfor %}
     </br>
     {% for question_group in question_groups %}
-      <input type="radio" name="question_group" value="{{question_group.question_group}}">{{question_group.question_group}}<br>
+      <input type="radio" name="question_group_and_total"
+      value="{{question_group.question_group}}|{{question_group.count}}" required>
+      {{question_group.question_group}}<br>
     {% endfor %}
     </br>
     <input type="submit" value="Get Started">

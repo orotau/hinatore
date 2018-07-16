@@ -43,12 +43,59 @@ def get_question_groups():
     con.row_factory = sqlite3.Row # makes a named tuple
     cur = con.cursor()
     query = '''
-    SELECT DISTINCT
-        question_group
+    SELECT
+        question_group,
+        count(*) as count
     FROM
         question_and_answers
+    GROUP BY
+        question_group
     '''
 
     with con:
         cur.execute(query)
         return cur.fetchall()
+
+def get_dwell_time(user):
+    con = sqlite3.connect(db_path)
+    con.row_factory = sqlite3.Row # makes a named tuple
+    cur = con.cursor()
+    query = '''
+    SELECT
+        dwell_time
+    FROM
+        person
+    WHERE
+        name = ?
+    '''
+    vars = (user,)
+
+    with con:
+        cur.execute(query, vars)
+        return cur.fetchall()[0]
+
+def insert_result(result):
+    con = sqlite3.connect(db_path)
+    cur = con.cursor()
+    query = '''
+    INSERT INTO
+        results (name,
+                 dt,
+                 question_group,
+                 question_number,
+                 question,
+                 correct_answer,
+                 answer_given)
+    VALUES
+        (?, ?, ?, ?, ?, ?, ?)
+    '''
+    vars = (result["name"],
+            result["dt"],
+            result["question_group"],
+            result["question_number"],
+            result["question"],
+            result["correct_answer"],
+            result["answer_given"])
+    with con:
+        cur.execute(query, vars)
+        return True

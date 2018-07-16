@@ -6,7 +6,7 @@
 
   function startMovingFocus() {
     document.getElementById("nw").focus();
-    interval_timer = setInterval(moveFocus, 3000);
+    interval_timer = setInterval(moveFocus, 1000*{{dwell_time.dwell_time|int}});
   }
 
   function moveFocus() {
