@@ -22,3 +22,33 @@ def get_data(group, number):
     with con:
         cur.execute(query, vars)
         return cur.fetchall()[0]
+
+def get_users():
+    con = sqlite3.connect(db_path)
+    con.row_factory = sqlite3.Row # makes a named tuple
+    cur = con.cursor()
+    query = '''
+    SELECT
+        name
+    FROM
+        person
+    '''
+
+    with con:
+        cur.execute(query)
+        return cur.fetchall()
+
+def get_question_groups():
+    con = sqlite3.connect(db_path)
+    con.row_factory = sqlite3.Row # makes a named tuple
+    cur = con.cursor()
+    query = '''
+    SELECT DISTINCT
+        question_group
+    FROM
+        question_and_answers
+    '''
+
+    with con:
+        cur.execute(query)
+        return cur.fetchall()

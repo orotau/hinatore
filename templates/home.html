@@ -2,7 +2,17 @@
 <html>
 <body>
 
-<h2>The Button Element</h2>
-<button onclick="window.location.href='./2_dice/1/4'">Click me</button>
+<h2>Get started with hinatore</h2>
+<form action="{{ url_for('start') }}" method="post">
+    {% for user in users %}
+      <input type="radio" name="user" value="{{user.name}}">{{user.name}}<br>
+    {% endfor %}
+    </br>
+    {% for question_group in question_groups %}
+      <input type="radio" name="question_group" value="{{question_group.question_group}}">{{question_group.question_group}}<br>
+    {% endfor %}
+    </br>
+    <input type="submit" value="Get Started">
+</form>
 </body>
 </html>

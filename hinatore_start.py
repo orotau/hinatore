@@ -1,4 +1,5 @@
-from flask import Flask, render_template, flash, make_response, request
+from flask import Flask, render_template, flash, \
+make_response, request, redirect, url_for
 from random import shuffle
 import datetime
 import hinatore_db
@@ -9,11 +10,25 @@ ui_data = {}
 
 @app.route('/')
 def home():
-    # http://flask.pocoo.org/docs/1.0/api/#flask.make_response
-    response = make_response(render_template('home.html'))
-    response.set_cookie("user", "John Smith")
+    # get the list of users and list of question groups
+    # for initial selection
+    users = hinatore_db.get_users()
+    question_groups = hinatore_db.get_question_groups()
+    return render_template('home.html', users=users, question_groups=question_groups)
+
+@app.route('/start', methods=['POST'])
+def start():
+    # Used to gather the data from the home screen
+    # set cookies and get the process underway
+    response = make_response(redirect(url_for('question', \
+        group=request.form["question_group"], \
+        number=1, \
+        total=4 \
+        )))
+    response.set_cookie("user", request.form["user"])
     response.set_cookie("start_time", datetime.datetime.now().isoformat())
     return response
+
 
 @app.route('/<group>/<number>/<total>')
 def question(group, number, total):
