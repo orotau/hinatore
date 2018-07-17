@@ -99,3 +99,22 @@ def insert_result(result):
     with con:
         cur.execute(query, vars)
         return True
+
+def get_results(user, start_time):
+    con = sqlite3.connect(db_path)
+    con.row_factory = sqlite3.Row # makes a named tuple
+    cur = con.cursor()
+    query = '''
+    SELECT
+        *
+    FROM
+        results
+    WHERE
+        name = ?
+        AND dt = ?
+    '''
+    vars = (user, start_time)
+
+    with con:
+        cur.execute(query, vars)
+        return cur.fetchall()

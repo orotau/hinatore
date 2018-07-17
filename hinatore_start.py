@@ -36,8 +36,9 @@ def start():
 def question(group, number, total):
     user = request.cookies.get("user")
     dwell_time = hinatore_db.get_dwell_time(user)
-    print(user, dwell_time["dwell_time"])
     db_qas = hinatore_db.get_data(group, number)
+
+    # randomise the position of the 4 answers
     shuffle(positions)
     ui_data[positions[0]] = (db_qas['correct_answer'], "ca")
     ui_data[positions[1]] = (db_qas['wrong_answer_a'], "wa")
@@ -94,7 +95,26 @@ def answer(group, number, total, selection):
 @app.route('/<group>/<number>/<total>/hinatore')
 def hinatore(group, number, total):
     # write results to screen
-    response = make_response(render_template('hinatore.html'))
+    user = request.cookies.get("user")
+    start_time = request.cookies.get("start_time")
+    results = hinatore_db.get_results(user, start_time)
+
+    # calculate percentage correct
+    number_of_questions = len(results)
+    total_correct = 0
+    for result in results:
+        if result["correct_answer"] == result["answer_given"]:
+            total_correct = total_correct + 1
+            
+    # https://docs.python.org/3.4/library/string.html
+    percentage_correct = '{:.0%}'.format(total_correct/number_of_questions)
+    summary = {}
+    summary["total_correct"] = total_correct
+    summary["number_of_questions"] = number_of_questions
+    summary["percentage_correct"] = percentage_correct
+    response = make_response(render_template('hinatore.html',
+                                             results=results,
+                                             summary=summary))
     response.delete_cookie("user")
     response.delete_cookie("start_time")
     return response

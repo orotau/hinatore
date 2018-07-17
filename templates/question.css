@@ -4,7 +4,7 @@ html, body { }
 
 div { position:fixed;
   width:50%; height:40%;
-  box-sizing:border-box; font-size: 800%;
+  box-sizing:border-box; font-size: 650%;
   display: flex;
   /* align horizontal */
   justify-content: center;
@@ -12,14 +12,14 @@ div { position:fixed;
   align-items: center;
 }
 
-#nw { top:20%;   left:0;   background:orange  }
+#nw { top:20%;   left:0;   background:yellow  }
 #ne { top:20%;   left:50%; background:blue    }
 #sw { top:60%; left:0;   background:green   }
 #se { top:60%; left:50%; background:red     }
 
 #bar { position:fixed;
   width:100%; height:20%;
-  font-size: 500%;
+  font-size: 400%;
 }
 
 :focus {
