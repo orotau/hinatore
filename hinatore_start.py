@@ -8,20 +8,6 @@ app.secret_key = b'_5#y2L"F4Q8z\n\xec]/' #copied
 positions = ["nw", "ne", "se", "sw"]
 ui_data = {}
 
-# http://flask.pocoo.org/docs/1.0/logging/
-from logging.config import dictConfig
-
-dictConfig({
-    'version': 1,
-    'formatters': {'default': {
-        'format': '[%(asctime)s] %(levelname)s in %(module)s: %(message)s',
-    }},
-    'root': {
-        'level': 'INFO',
-        'handlers': ['wsgi']
-    }
-})
-
 @app.route('/')
 def home():
     # get the list of users and list of question groups
