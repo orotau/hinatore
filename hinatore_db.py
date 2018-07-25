@@ -77,8 +77,11 @@ def get_dwell_time(user):
 def insert_result(result):
     con = sqlite3.connect(db_path)
     cur = con.cursor()
+    # if Georjah hits the switch twice in quick succession
+    # this causes the database to try and write twice the answer
+    # to the question. This is why INSERT was changed to INSERT OR IGNORE
     query = '''
-    INSERT INTO
+    INSERT OR IGNORE INTO
         results (name,
                  dt,
                  question_group,
